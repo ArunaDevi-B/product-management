@@ -1,0 +1,28 @@
+{
+  "name": "shopping-cart",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@ant-design/icons": "^5.3.7",
+    "@astrojs/check": "^0.7.0",
+    "@astrojs/react": "^3.5.0",
+    "antd": "^5.18.0",
+    "astro": "^4.10.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-icons": "^5.2.1",
+    "typescript": "^5.4.5"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.2",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0"
+  }
+}
