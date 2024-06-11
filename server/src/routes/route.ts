@@ -33,7 +33,7 @@ router.post('/products', async (req: Request, res: Response) => {
     try {
         const createdProduct = await productsHandler.createProduct(req);
         if(createdProduct == null){
-            res.status(200).send('Product already exists');
+        res.status(200).send({message:'Product already exists'});
         }else {
             console.log(createdProduct,'createdProduct');
             res.status(200).json(createdProduct);
