@@ -4,6 +4,7 @@ import type { TableProps } from 'antd';
 import { AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai';
 import axios from 'axios';
 import '../../public/table.css';
+import {backendBaseUrl} from '../utils/config';
 
 interface DataType {
   key: string;
@@ -25,8 +26,7 @@ const DataTable: React.FC = () => {
     fetchData()
   }, []);
   const fetchData = () => {
-        // Fetch data from API when component mounts
-        axios.get('http://localhost:9000/products')
+        axios.get(`${backendBaseUrl}/products`)
         .then(response => {
           setData(response.data);
         })
@@ -38,7 +38,7 @@ const DataTable: React.FC = () => {
 
   const handleAddProduct = () => {
     addForm.validateFields().then(values => {
-      axios.post('http://localhost:9000/products', values)
+      axios.post(`${backendBaseUrl}/products`, values)
         .then(response => {
           if(response?.data?.message){
             message.error(response?.data?.message);
@@ -69,7 +69,7 @@ const DataTable: React.FC = () => {
   };
 
   const handleDelete = (number: number) => {
-    axios.delete(`http://localhost:9000/products/${number}`)
+    axios.delete(`${backendBaseUrl}/products/${number}`)
     .then(response => {
       console.log('Record deleted successfully:', response.data);
       message.success('Record deleted successfully');
@@ -136,7 +136,7 @@ const columns: TableProps<DataType>['columns'] = [
 
 const handleOk = () => {
       form.validateFields().then(values => {
-        axios.put(`http://localhost:9000/products/${values.number}`, values)
+        axios.put(`${backendBaseUrl}/products/${values.number}`, values)
         .then(response => {
           message.success('Product updated successfully');
           console.log('Product updated successfully:', response.data);
@@ -209,13 +209,13 @@ const handleOk = () => {
           <Form.Item name="product_name" label="Product Name" rules={[{ required: true, message: 'Please enter the Product name' }]}>
             <Input />
           </Form.Item>
-          <Form.Item name="price" label="Price" rules={[{ required: true, message: 'Please enter the price' }]}>
+          <Form.Item name="price" label="Price" rules={[{ required: true, message: 'Please enter the price' }, positiveNumberRule]}>
             <Input type="number" />
           </Form.Item>
-          <Form.Item name="number" label="Product Number" rules={[{ required: true, message: 'Please enter the product number' }]}>
+          <Form.Item name="number" label="Product Number" rules={[{ required: true, message: 'Please enter the product number' }, positiveNumberRule]}>
             <Input />
           </Form.Item>
-          <Form.Item name="quantity" label="Quantity" rules={[{ required: true, message: 'Please enter the quantity' }]}>
+          <Form.Item name="quantity" label="Quantity" rules={[{ required: true, message: 'Please enter the quantity' }, positiveNumberRule]}>
             <Input />
           </Form.Item>
         </Form>
