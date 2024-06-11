@@ -5,15 +5,6 @@ interface ProcessEnv {
     Mongo_URL: string;
 }
 
-// Extending NodeJS.ProcessEnv to include our custom environment variable
-declare global {
-    namespace NodeJS {
-        interface ProcessEnv {
-            Mongo_URL: string;
-        }
-    }
-}
-
 // Function to connect to the MongoDB database
 export function connectDB(): void {
     const mongoURL = process.env.Mongo_URL;

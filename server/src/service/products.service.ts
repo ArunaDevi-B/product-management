@@ -1,6 +1,6 @@
 import { Request } from 'express';
 import Product from '../model/product.model';
-import { productTypes } from '../types/products.type';
+import { productTypes, productTypesResponse } from '../types/products.type';
 
 export class ProductsHandler {
 
@@ -36,8 +36,7 @@ export class ProductsHandler {
                 const createdProduct = (await newProduct.save());
                 return createdProduct;
             } else {
-                let message: any = {message: 'Product already exists'}
-                return message;
+                return null;
             }
         } catch (error) {
             console.error('Error creating product:', error);
@@ -45,30 +44,30 @@ export class ProductsHandler {
         }
     }
 
-    public async updateProduct(req: Request): Promise<any> {
+    public async updateProduct(req: Request): Promise<productTypes | string | null> {
         try {
             const condition = { number: req.params.id };
-           const updatedProduct: any = await Product.findOneAndUpdate(condition, req.body)
-                if (!updatedProduct) {
-                    return "Product not Found";
-                }else{
-                    return updatedProduct;
-                }
+            const updatedProduct: productTypesResponse | null = await Product.findOneAndUpdate(condition, req.body)
+            if (!updatedProduct) {
+                return null;
+            } else {
+                return updatedProduct;
+            }
         } catch (error) {
             console.log(error, 'error');
             throw error;
         }
     }
 
-    
+
     public async deleteProduct(id: Number) {
-        try{
-                       const product: any = await Product.deleteOne({ number: id });
-                       return product;
-                } catch(error){
-                    console.log(error,'error');
-                    throw error;
-                }
+        try {
+            const product = await Product.deleteOne({ number: id });
+            return product;
+        } catch (error) {
+            console.log(error, 'error');
+            throw error;
+        }
     }
 
 }
