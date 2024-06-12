@@ -5,9 +5,6 @@ import dotenv from "dotenv";
 import cors from "cors";
 import bodyParser from "body-parser";
 
-// Load environment variables
-dotenv.config();
-
 const port = process.env.PORT || 9000;
 const app = express();
 
