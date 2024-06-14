@@ -17,7 +17,6 @@ interface DataType {
 const DataTable: React.FC = () => {
     const [data, setData] = useState<DataType[]>([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [editingRecord, setEditingRecord] = useState<DataType | null>(null);
   const [isAddModalVisible, setIsAddModalVisible] = useState(false);
   const [form] = Form.useForm();
   const [addForm] = Form.useForm();
@@ -63,7 +62,6 @@ const DataTable: React.FC = () => {
   };
 
   const handleEdit = (record: DataType) => {
-    setEditingRecord(record);
     form.setFieldsValue(record);
     setIsModalVisible(true);
   };
@@ -147,14 +145,12 @@ const handleOk = () => {
           console.error('Error updating data:', error);
         });
         setIsModalVisible(false);
-        setEditingRecord(null);
         form.resetFields();
       });
     };
   
     const handleCancel = () => {
       setIsModalVisible(false);
-      setEditingRecord(null);
       form.resetFields();
     };
 
